@@ -3,11 +3,9 @@
 activePlayer = 1;
 
 
-
 // Тоглогчдын нийт цуглуулсан оноог хадгалах хувьсагч.
 
 var scores = [0, 0];
-
 
 
 // Тоглогчийн ээлжиндээ цуглуулад байгаа оноо.
@@ -15,31 +13,27 @@ var scores = [0, 0];
 var roundScore = 0;
 
 
-
 // Шооны буусан тоог хадгалах хувьсагч. 1-6 гэсэн тоо энэ хувьсагчид санамсаргүй байдлаар өгнө.
 
-var dice = Math.floor(Math.random() * 6) + 1
-
-console.log(dice);
-
-
-
-/*************
-    Жишээ болгож нэг тоглогчийн оноог DOM-оор өөрчлөе.
-    <div class="player-score" id="score-0">43</div> 
-
-    globalThis.document.querySelector('#score-0').textContent = dice
-    document.querySelector('#score-1').innerHTML = '<em>Haha</em>' 
-*************/
-
+var diceNumber = Math.floor(Math.random() * 6) + 1;
 
 // Программ эхлэхэд. 
-document.querySelector('#score-0').innerHTML = 0;
-document.querySelector('#score-1').innerHTML = 0;
+document.getElementById('score-0').textContent = 0;
+document.getElementById('score-1').textContent = 0;
 
-document.querySelector("#current-0").textContent = 0;
-document.querySelector("#current-1").textContent = 0;
+document.getElementById("current-0").textContent = 0;
+document.getElementById("current-1").textContent = 0;
+
 
 // Шооны зураг хэсэг.
 
-document.querySelector(".dice").style.display = "none"; 
+var shooniiZurag = document.querySelector(".dice");
+shooniiZurag.style.display = "none"; 
+
+// Roll-Dice гэсэн товчийг ажилладаг болгоё. "Event"
+
+document.querySelector('.btn-roll').addEventListener('click', function(){
+    var diceNumber = Math.floor(Math.random() * 6) + 1;
+    shooniiZurag.style.display = 'block';
+    shooniiZurag.src = 'dice-' + diceNumber + '.png'
+})
