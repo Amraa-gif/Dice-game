@@ -1,29 +1,52 @@
+// Тоглоомын бүх газарт ашиглагдах глобал хувьсагчид.
 // Аль тоглогч шоог хаяхыг шийддэг хувьсагч. 1-р тоглогч "0", 2-р тоглогч "1".
-activePlayer = 0;
-
-
+var activePlayer;
 // Тоглогчдын нийт цуглуулсан оноог хадгалах хувьсагч.
-var scores = [0, 0];
-
-
+var scores;
 // Тоглогчийн ээлжиндээ цуглуулад байгаа оноо.
-var roundScore = 0;
-
-
-// Шооны буусан тоог хадгалах хувьсагч. 1-6 гэсэн тоо энэ хувьсагчид санамсаргүй байдлаар өгнө.
-var diceNumber = Math.floor(Math.random() * 6) + 1;
-
-// Программ эхлэхэд. 
-document.getElementById('score-0').textContent = 0;
-document.getElementById('score-1').textContent = 0;
-
-document.getElementById("current-0").textContent = 0;
-document.getElementById("current-1").textContent = 0;
+var roundScore;
 
 
 // Шооны зураг хэсэг.
 var shooniiZurag = document.querySelector(".dice");
-shooniiZurag.style.display = "none"; 
+
+// Эхлэх.
+ehlehHeseg();
+
+
+// Эхлэхэд гарах хэсэг.
+function ehlehHeseg(){
+    // Аль тоглогч шоог хаяхыг шийддэг хувьсагч. 1-р тоглогч "0", 2-р тоглогч "1".
+    activePlayer = 0;
+
+    // Тоглогчдын нийт цуглуулсан оноог хадгалах хувьсагч.
+    scores = [0, 0];
+
+    // Тоглогчийн ээлжиндээ цуглуулад байгаа оноо.
+    roundScore = 0;
+
+    // Программ эхлэхэд. 
+    document.getElementById('score-0').textContent = 0;
+    document.getElementById('score-1').textContent = 0;
+
+    document.getElementById("current-0").textContent = 0;
+    document.getElementById("current-1").textContent = 0;
+
+    // Шооны зургийг байхгүй болгох хэсэг.
+    shooniiZurag.style.display = "none"; 
+
+    // Тоглогчдийн нэрийг хэвийн болгох.
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+
+    document.querySelector('.player-0-panel').classList.add('active');
+}
 
 
 // Roll-Dice гэсэн товчийг ажилладаг болгоё. "Event listener"
@@ -76,3 +99,6 @@ function shooHayahErh(){
     
     // Шоог хаяад 1 буусан үед шоог алга болгоно.
     shooniiZurag.style.display = "none"; }
+
+    // New game гэдэг товчийг ажлуулах.
+document.querySelector('.btn-new').addEventListener('click', ehlehHeseg)
