@@ -5,6 +5,8 @@ var activePlayer;
 var scores;
 // Тоглогчийн ээлжиндээ цуглуулад байгаа оноо.
 var roundScore;
+// Тоглоом дууссанг хадгалах төлөвийн хувьсагч.
+var newGame;
 
 
 // Шооны зураг хэсэг.
@@ -16,6 +18,9 @@ ehlehHeseg();
 
 // Эхлэхэд гарах хэсэг.
 function ehlehHeseg(){
+    // Тоглоом дууссан. 
+    newGame = true;
+
     // Аль тоглогч шоог хаяхыг шийддэг хувьсагч. 1-р тоглогч "0", 2-р тоглогч "1".
     activePlayer = 0;
 
@@ -51,34 +56,40 @@ function ehlehHeseg(){
 
 // Roll-Dice гэсэн товчийг ажилладаг болгоё. "Event listener"
 document.querySelector('.btn-roll').addEventListener('click', function(){
-    // Шооны санамсаргүй буусан тоог хийнэ. 
-    var diceNumber = Math.floor(Math.random() * 6) + 1;
-    shooniiZurag.style.display = 'block';
-    shooniiZurag.src = 'dice-' + diceNumber + '.png';
-    // 1-ээс ялгаатай тоо буувал ээлжийн оноо хэсэгт тухайн тоог нэмж өгнө.
-    if(diceNumber !== 1){
-        roundScore = roundScore + diceNumber;
-        document.getElementById('current-' + activePlayer).textContent = roundScore;
-    }else{
-        shooHayahErh();
-    } 
+    if(newGame){
+        // Шооны санамсаргүй буусан тоог хийнэ. 
+        var diceNumber = Math.floor(Math.random() * 6) + 1;
+        shooniiZurag.style.display = 'block';
+        shooniiZurag.src = 'dice-' + diceNumber + '.png';
+        // 1-ээс ялгаатай тоо буувал ээлжийн оноо хэсэгт тухайн тоог нэмж өгнө.
+        if(diceNumber !== 1){
+            roundScore = roundScore + diceNumber;
+            document.getElementById('current-' + activePlayer).textContent = roundScore;
+        }else{
+            shooHayahErh();
+        } 
+    }
 });
 
 
 // Ээлжиндээ цуглуулсан оноогоо ерөнхий онооруу шилжүүлэх. HOLD товчоо ажлуулах.
 document.querySelector('.btn-hold').addEventListener('click', function(){
-    // Уг тоглогчийн цуглуулсан оноог нийт оноонд нь нэмж өгнө.
+    if(newGame){
+        // Уг тоглогчийн цуглуулсан оноог нийт оноонд нь нэмж өгнө.
     scores[activePlayer] = scores[activePlayer] + roundScore;
     document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 
     // Уг тоглогчийг хожсон үгүйг шалгах.
-    if(scores[activePlayer] >= 100){
+    if(scores[activePlayer] >= 10){
+        newGame = false;
+
         // Ялсан хүний нэрийг WINNER болгоно
         document.getElementById('name-' + activePlayer).textContent = 'Winner';
         document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
         document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active')
     }else{
         shooHayahErh();
+    }
     }
 });
 
