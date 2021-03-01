@@ -80,7 +80,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 
     // Уг тоглогчийг хожсон үгүйг шалгах.
-    if(scores[activePlayer] >= 10){
+    if(scores[activePlayer] >= 100){
         newGame = false;
 
         // Ялсан хүний нэрийг WINNER болгоно
